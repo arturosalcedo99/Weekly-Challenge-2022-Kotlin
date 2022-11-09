@@ -22,11 +22,13 @@ package com.mouredev.weeklychallenge2022
 
 fun main() {
     println(isAnagram("amor", "roma"))
+    println(isAnagram("pan", "queso"))
 }
 
-private fun isAnagram(wordOne: String, wordTwo: String): Boolean {
-    if (wordOne.lowercase() == wordTwo.lowercase()) {
-        return false
-    }
-    return wordOne.lowercase().toCharArray().sortedArray().contentEquals(wordTwo.lowercase().toCharArray().sortedArray())
+private fun isAnagram(word1: String, word2: String): Boolean {
+
+    val split1 = word1.lowercase().split("").sortedBy { it }
+    val split2 = word2.lowercase().split("").sortedBy { it }
+
+    return split1 == split2
 }
