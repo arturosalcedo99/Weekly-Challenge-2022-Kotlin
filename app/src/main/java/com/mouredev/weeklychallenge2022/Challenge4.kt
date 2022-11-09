@@ -22,51 +22,57 @@ package com.mouredev.weeklychallenge2022
 
 fun main() {
 
-    area(Triangle(10.0, 5.0))
-    area(Rectangle(5.0, 7.0))
-    area(Square(4.0))
+    Triangle(10.0f, 5.0f).let {
+        print(
+            "Área del triángulo [Altura: ${it.height}, Base: ${it.base}] = " +
+                it.calculateArea() + "\n"
+        )
+    }
+
+    Square(10.0f).let {
+        print(
+            "Área del cuadrado [Lado: ${it.side}] = " +
+                    it.calculateArea() + "\n"
+        )
+    }
+
+    Rectangle(10.0f, 5.0f).let {
+        print(
+            "Área del rectángulo [Lado corto: ${it.shortSide}, Lado largo: ${it.longSide}] = " +
+                    it.calculateArea() + "\n"
+        )
+    }
 }
 
 interface Polygon {
-
-    fun area(): Double
-    fun printArea()
+    fun calculateArea(): Float
 }
 
-data class Triangle(val base: Double, val height: Double): Polygon {
+class Triangle(
+    val height: Float,
+    val base: Float
+): Polygon {
 
-    override fun area(): Double {
-        return (base * height) / 2
-    }
-
-    override fun printArea() {
-        println("El área del triángulo es ${area()}")
+    override fun calculateArea(): Float {
+        return (height * base) / 2
     }
 }
 
-data class Rectangle(val length: Double, val width: Double): Polygon {
+class Square(
+    val side: Float
+): Polygon {
 
-    override fun area(): Double {
-        return length * width
-    }
-
-    override fun printArea() {
-        println("El área del rectángulo es ${area()}")
-    }
-}
-
-data class Square(val side: Double): Polygon {
-
-    override fun area(): Double {
+    override fun calculateArea(): Float {
         return side * side
     }
-
-    override fun printArea() {
-        println("El área del cuadrado es ${area()}")
-    }
 }
 
-private fun area(polygon: Polygon): Double {
-    polygon.printArea()
-    return polygon.area()
+class Rectangle(
+    val shortSide: Float,
+    val longSide: Float
+): Polygon {
+
+    override fun calculateArea(): Float {
+        return shortSide * longSide
+    }
 }
