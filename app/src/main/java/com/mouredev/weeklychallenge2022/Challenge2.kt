@@ -23,15 +23,15 @@ import java.math.BigInteger
 
 fun main() {
 
-    var n0: Long = 0
-    var n1: Long = 1
+    val numbers = arrayListOf<Long>()
 
-    (1..50).forEach { _ ->
-
-        println(n0)
-
-        val fib = n0 + n1
-        n0 = n1
-        n1 = fib
+    for (i in 0..50) {
+        if (i < 2) {
+            numbers.add(i.toLong())
+        } else {
+            numbers.add(numbers[i - 2] + numbers[i - 1])
+        }
     }
+
+    print(numbers)
 }
