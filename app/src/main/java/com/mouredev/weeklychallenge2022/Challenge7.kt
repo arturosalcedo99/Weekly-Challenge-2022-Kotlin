@@ -1,8 +1,5 @@
 package com.mouredev.weeklychallenge2022
 
-import java.util.*
-import kotlin.collections.HashMap
-
 /*
  * Reto #7
  * CONTANDO PALABRAS
@@ -24,32 +21,26 @@ import kotlin.collections.HashMap
  */
 
 fun main() {
-    "Hola, mi nombre es brais. Mi nombre completo es Brais Moure (MoureDev).".countWords()
+    countWords("Hola, mi nombre es brais. Mi nombre completo es Brais Moure (MoureDev).")
 }
 
-private fun String.countWords() {
+fun countWords(text: String) {
 
-    var wordsCount: HashMap<String, Int> = hashMapOf()
-    var wordsNumber: Int = 0
+    val words = mutableMapOf<String, Int>()
 
-    this.replace("[\\p{P}\\p{S}]".toRegex(), " ").lowercase().split(" ").forEach {
-        if (wordsCount.containsKey(it))
-            wordsCount[it] = wordsCount.getValue(it) + 1
-        else
-            wordsCount[it] = 1
-    }
-
-    wordsCount = wordsCount.toList()
-        .sortedBy { (key, _) -> key }
-        .sortedByDescending { (_, value) -> value }
-        .toMap() as HashMap<String, Int>
-
-    wordsCount.forEach { (word, count) ->
-        if (word.isNotEmpty() && word != " ") {
-            print("${word.replaceFirstChar { it.uppercase() }}: $count\n")
-            wordsNumber += count
+    text.lowercase().replace("[^a-z0-9]".toRegex(), " ").split(" ").forEach { key ->
+        if (key.isEmpty()) {
+            return@forEach
+        }
+        if (words[key] != null) {
+            words[key] = words.getValue(key) + 1
+        } else {
+            words[key] = 1
         }
     }
 
-    print("Total de palabras: $wordsNumber")
+    words.forEach { word ->
+        println("${word.key} se ha repetido ${word.value} ${if(word.value == 1) "vez" else "veces"}")
+    }
 }
+
