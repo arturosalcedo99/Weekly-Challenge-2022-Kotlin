@@ -18,23 +18,21 @@ package com.mouredev.weeklychallenge2022
  */
 
 fun main() {
-    println(decimalToBinary(387))
-    println(decimalToBinary(0))
+    println("[Decimal] 387 -> [Binario] ${387.toBinary()}\n")
+    println("[Decimal] 4 -> [Binario] ${4.toBinary()}\n")
 }
 
-fun decimalToBinary(decimal: Int): String {
+private fun Int.toBinary(): String {
 
-    var number = decimal
+    var decimal = this
     var binary = ""
 
-    while (number != 0) {
+    while (decimal != 0) {
+        val res = decimal % 2
+        decimal /= 2
 
-        val reminder = number % 2
-        number /= 2
-
-        binary = "$reminder$binary"
+        binary += res
     }
 
-    return binary.ifEmpty { "0" }
+    return binary.reversed()
 }
-
