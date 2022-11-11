@@ -31,6 +31,8 @@ package com.mouredev.weeklychallenge2022
  *
  */
 
+import com.mouredev.weeklychallenge2022.BlockType.*
+
 fun main() {
     val blocks = arrayListOf(4, 0, 3, 6, 1, 3)
     countWaterDrops(blocks)
@@ -39,23 +41,23 @@ fun main() {
 private fun countWaterDrops(blocks: ArrayList<Int>) {
     val maxWidth = blocks.size
     val maxHeight = blocks.max()
-    val matrix = arrayListOf<ArrayList<Int>>()
+    val matrix = arrayListOf<ArrayList<BlockType>>()
 
     for (i in 0 until maxHeight) {
-        val row = arrayListOf<Int>()
+        val row = arrayListOf<BlockType>()
         for (j in 0 until maxWidth) {
             if (blocks[j] > 0) {
-                row.add(1)
+                row.add(BRICK)
                 blocks[j]--
             } else {
-                row.add(0)
+                row.add(EMPTY_SPACE)
             }
         }
-        val firstIndex = row.indexOfFirst { it == 1 }
-        val lastIndex = row.indexOfLast { it == 1 }
+        val firstIndex = row.indexOfFirst { it == BRICK } + 1
+        val lastIndex = row.indexOfLast { it == BRICK } - 1
         row.mapIndexed { index, value ->
-            if (index in firstIndex..lastIndex && value == 0)
-                row[index] = 2
+            if (index in firstIndex..lastIndex && value == EMPTY_SPACE)
+                row[index] = RAINDROP
         }
         matrix.add(i, row)
     }
@@ -64,15 +66,20 @@ private fun countWaterDrops(blocks: ArrayList<Int>) {
         row.forEach {
             print(
                 when (it) {
-                    0 -> "   "
-                    1 -> "[*]"
-                    2 -> " · "
-                    else -> ""
+                    EMPTY_SPACE -> "   "
+                    BRICK -> "[*]"
+                    RAINDROP -> " · "
                 }
             )
         }
         println()
     }
 
-    print("Hay un total de ${ matrix.flatten().count { it == 2 } } gotas de agua")
+    print("Hay un total de ${ matrix.flatten().count { it == RAINDROP } } gotas de agua")
+}
+
+enum class BlockType {
+    EMPTY_SPACE,
+    BRICK,
+    RAINDROP
 }
