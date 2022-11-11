@@ -31,3 +31,48 @@ package com.mouredev.weeklychallenge2022
  *
  */
 
+fun main() {
+    val blocks = arrayListOf(4, 0, 3, 6, 1, 3)
+    countWaterDrops(blocks)
+}
+
+private fun countWaterDrops(blocks: ArrayList<Int>) {
+    val maxWidth = blocks.size
+    val maxHeight = blocks.max()
+    val matrix = arrayListOf<ArrayList<Int>>()
+
+    for (i in 0 until maxHeight) {
+        val row = arrayListOf<Int>()
+        for (j in 0 until maxWidth) {
+            if (blocks[j] > 0) {
+                row.add(1)
+                blocks[j]--
+            } else {
+                row.add(0)
+            }
+        }
+        val firstIndex = row.indexOfFirst { it == 1 }
+        val lastIndex = row.indexOfLast { it == 1 }
+        for (k in firstIndex..lastIndex) {
+            if (row[k] == 0)
+                row[k] = 2
+        }
+        matrix.add(i, row)
+    }
+
+    matrix.reversed().forEach { row ->
+        row.forEach {
+            print(
+                when (it) {
+                    0 -> "   "
+                    1 -> "[*]"
+                    2 -> " · "
+                    else -> ""
+                }
+            )
+        }
+        println()
+    }
+
+    print("Hay un total de ${ matrix.flatten().count { it == 2 } } gotas de agua")
+}
