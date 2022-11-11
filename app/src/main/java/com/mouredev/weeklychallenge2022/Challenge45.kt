@@ -53,9 +53,9 @@ private fun countWaterDrops(blocks: ArrayList<Int>) {
         }
         val firstIndex = row.indexOfFirst { it == 1 }
         val lastIndex = row.indexOfLast { it == 1 }
-        for (k in firstIndex..lastIndex) {
-            if (row[k] == 0)
-                row[k] = 2
+        row.mapIndexed { index, value ->
+            if (index in firstIndex..lastIndex && value == 0)
+                row[index] = 2
         }
         matrix.add(i, row)
     }
