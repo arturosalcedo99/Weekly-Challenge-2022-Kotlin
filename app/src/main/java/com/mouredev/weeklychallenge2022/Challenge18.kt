@@ -39,6 +39,14 @@ private fun checkTicTacToe(matrix: ArrayList<ArrayList<Char>>): String {
     if(!matrix.hasCorrectPiecesProportion())
         return "Nulo: No hay una proporción correcta de X y O en el tablero."
 
+    var victoryPieces = checkDiagonal(matrix)
+    if (victoryPieces == 'X' || victoryPieces == 'O') {
+        //TODO: Gestionar la victoria de las 'X' o de las 'O'
+    } else {
+        victoryPieces = checkLinear(matrix)
+        //TODO: Comprobar si hay una victoria o no
+    }
+
     return "Correcto"
 }
 
@@ -58,12 +66,12 @@ private fun ArrayList<ArrayList<Char>>.hasCorrectPiecesProportion(): Boolean {
     return countDifference in 0..1
 }
 
-//Comprueba si hay una victoria por parte de las 'X' o de las 'O' en vertical u horizontal
-private fun checkLinear(matrix: ArrayList<ArrayList<Char>>) {
+//Comprueba si hay una victoria por parte de las 'X' o de las 'O' en diagonal
+private fun checkDiagonal(matrix: ArrayList<ArrayList<Char>>): Char {
 
 }
 
-//Comprueba si hay una victoria por parte de las 'X' o de las 'O' en diagonal
-private fun checkDiagonal(matrix: ArrayList<ArrayList<Char>>) {
+//Comprueba si hay una victoria por parte de las 'X' o de las 'O' en vertical u horizontal
+private fun checkLinear(matrix: ArrayList<ArrayList<Char>>): Char {
 
 }
