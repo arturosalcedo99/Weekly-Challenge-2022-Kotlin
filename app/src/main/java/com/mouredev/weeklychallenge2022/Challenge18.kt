@@ -1,5 +1,7 @@
 package com.mouredev.weeklychallenge2022
 
+import kotlin.math.min
+
 /*
  * Reto #18
  * TRES EN RAYA
@@ -22,6 +24,8 @@ package com.mouredev.weeklychallenge2022
  *
  */
 
+private const val MATRIX_SIZE = 3
+
 fun main() {
     val matrix = arrayListOf(
         arrayListOf(' ', 'X', 'O'),
@@ -33,26 +37,33 @@ fun main() {
 
 private fun checkTicTacToe(matrix: ArrayList<ArrayList<Char>>): String {
 
-    if(!matrix.hasCorrectDimensions())
+    if (!matrix.hasCorrectDimensions())
         return "Nulo: Las dimensiones del tablero no son las esperadas."
 
-    if(!matrix.hasCorrectPiecesProportion())
+    if (!matrix.hasCorrectPiecesProportion())
         return "Nulo: No hay una proporción correcta de X y O en el tablero."
 
     var victoryPieces = checkDiagonal(matrix)
-    if (victoryPieces == 'X' || victoryPieces == 'O') {
-        //TODO: Gestionar la victoria de las 'X' o de las 'O'
-    } else {
-        victoryPieces = checkLinear(matrix)
-        //TODO: Comprobar si hay una victoria o no
-    }
-
-    return "Correcto"
+    return if (victoryPieces == 'X' || victoryPieces == 'O') {
+               "Se ha producido una victoria por parte de las '$victoryPieces'"
+           } else {
+               victoryPieces = checkLinear(matrix)
+               //TODO: Comprobar si hay una victoria o no
+               if (victoryPieces == 'X' || victoryPieces == 'O') {
+                   "Se ha producido una victoria por parte de las '$victoryPieces'"
+               } else {
+                   if (matrix.any { it.contains(' ') }) {
+                       "Nulo: Todavía no se ha producido una victoria"
+                   } else {
+                       "Empate: Ninguno de los jugadores ha llegado a la victoria"
+                   }
+               }
+           }
 }
 
 //Comprueba si el tablero tiene las dimensiones esperadas
 private fun ArrayList<ArrayList<Char>>.hasCorrectDimensions() =
-    this.size == 3 && this.all { it.size == 3 }
+    this.size == MATRIX_SIZE && this.all { it.size == MATRIX_SIZE }
 
 //Comprueba si el tablero tiene una proporción de 'X' y 'O' dentro de lo esperado
 private fun ArrayList<ArrayList<Char>>.hasCorrectPiecesProportion(): Boolean {
@@ -61,17 +72,33 @@ private fun ArrayList<ArrayList<Char>>.hasCorrectPiecesProportion(): Boolean {
     val countO = this.flatten().count { it == 'O' }
 
     var countDifference = countX - countO
-    if(countDifference < 0) countDifference *= -1
+    if (countDifference < 0) countDifference *= -1
 
     return countDifference in 0..1
 }
 
 //Comprueba si hay una victoria por parte de las 'X' o de las 'O' en diagonal
 private fun checkDiagonal(matrix: ArrayList<ArrayList<Char>>): Char {
+    var majorDiagonalPiece = matrix[0][0]
+    val reversedMatrix = matrix.onEach { it.reverse() }
+    var minorDiagonalPiece = reversedMatrix[0][0]
 
+    if (majorDiagonalPiece != ' ' || minorDiagonalPiece != ' ') {
+        for (i in 1 until MATRIX_SIZE) {
+            for (j in 1 until MATRIX_SIZE) {
+                if (i == j) {
+                    
+                }
+            }
+        }
+    }
+
+    return if (majorDiagonalPiece == ' ' && minorDiagonalPiece == ' ') ' '
+           else if (majorDiagonalPiece != ' ') majorDiagonalPiece
+           else minorDiagonalPiece
 }
 
 //Comprueba si hay una victoria por parte de las 'X' o de las 'O' en vertical u horizontal
 private fun checkLinear(matrix: ArrayList<ArrayList<Char>>): Char {
-
+    return ' '
 }
