@@ -48,7 +48,6 @@ private fun checkTicTacToe(matrix: ArrayList<ArrayList<Char>>): String {
                "Se ha producido una victoria por parte de las '$victoryPieces'"
            } else {
                victoryPieces = checkLinear(matrix)
-               //TODO: Comprobar si hay una victoria o no
                if (victoryPieces == 'X' || victoryPieces == 'O') {
                    "Se ha producido una victoria por parte de las '$victoryPieces'"
                } else {
@@ -80,22 +79,24 @@ private fun ArrayList<ArrayList<Char>>.hasCorrectPiecesProportion(): Boolean {
 //Comprueba si hay una victoria por parte de las 'X' o de las 'O' en diagonal
 private fun checkDiagonal(matrix: ArrayList<ArrayList<Char>>): Char {
     var majorDiagonalPiece = matrix[0][0]
-    val reversedMatrix = matrix.onEach { it.reverse() }
+    val reversedMatrix = matrix.reversed()
     var minorDiagonalPiece = reversedMatrix[0][0]
 
-    if (majorDiagonalPiece != ' ' || minorDiagonalPiece != ' ') {
-        for (i in 1 until MATRIX_SIZE) {
-            for (j in 1 until MATRIX_SIZE) {
-                if (i == j) {
-                    
-                }
-            }
-        }
-    }
-
     return if (majorDiagonalPiece == ' ' && minorDiagonalPiece == ' ') ' '
-           else if (majorDiagonalPiece != ' ') majorDiagonalPiece
-           else minorDiagonalPiece
+           else {
+               for (i in 1 until MATRIX_SIZE) {
+                   for (j in 1 until MATRIX_SIZE) {
+                       if (i == j) {
+                           if (matrix[i - 1][j - 1] != majorDiagonalPiece)
+                               majorDiagonalPiece = ' '
+                           if (reversedMatrix[i - 1][j - 1] != minorDiagonalPiece)
+                               minorDiagonalPiece = ' '
+                       }
+                   }
+               }
+               if (majorDiagonalPiece != ' ') majorDiagonalPiece
+               else minorDiagonalPiece
+           }
 }
 
 //Comprueba si hay una victoria por parte de las 'X' o de las 'O' en vertical u horizontal
