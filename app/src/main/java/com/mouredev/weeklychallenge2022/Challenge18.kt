@@ -25,12 +25,33 @@ package com.mouredev.weeklychallenge2022
 private const val MATRIX_SIZE = 3
 
 fun main() {
-    val matrix = arrayListOf(
+    var matrix = arrayListOf(
+        arrayListOf('X', 'X', 'O'),
+        arrayListOf('X', 'X', 'O'),
+        arrayListOf('O', 'O', 'X')
+    )
+    println(checkTicTacToe(matrix))
+
+    matrix = arrayListOf(
         arrayListOf(' ', 'X', 'O'),
-        arrayListOf('X', ' ', 'O'),
+        arrayListOf('X', 'O', 'O'),
         arrayListOf('O', ' ', 'X')
     )
-    print(checkTicTacToe(matrix))
+    println(checkTicTacToe(matrix))
+
+    matrix = arrayListOf(
+        arrayListOf(' ', 'X', 'O'),
+        arrayListOf('X', ' '),
+        arrayListOf('O', ' ', 'X')
+    )
+    println(checkTicTacToe(matrix))
+
+    matrix = arrayListOf(
+        arrayListOf('X', 'O', 'X'),
+        arrayListOf('X', 'O', 'O'),
+        arrayListOf('O', 'X', 'X')
+    )
+    println(checkTicTacToe(matrix))
 }
 
 private fun checkTicTacToe(matrix: ArrayList<ArrayList<Char>>): String {
