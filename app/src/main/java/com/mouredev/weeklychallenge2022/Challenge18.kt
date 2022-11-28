@@ -64,7 +64,7 @@ private fun checkTicTacToe(matrix: ArrayList<ArrayList<Char>>): String {
 
     val victoryPieces = checkVictory(matrix)
     return if (victoryPieces == 'X' || victoryPieces == 'O') {
-               "Se ha producido una victoria por parte de las '$victoryPieces'"
+               "Victoria: Han ganado las '$victoryPieces'"
            } else {
                if (matrix.any { it.contains(' ') }) {
                    "Nulo: Todavía no se ha producido una victoria"
