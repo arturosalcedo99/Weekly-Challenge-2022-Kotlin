@@ -1,7 +1,5 @@
 package com.mouredev.weeklychallenge2022
 
-import kotlin.math.min
-
 /*
  * Reto #18
  * TRES EN RAYA
@@ -43,19 +41,14 @@ private fun checkTicTacToe(matrix: ArrayList<ArrayList<Char>>): String {
     if (!matrix.hasCorrectPiecesProportion())
         return "Nulo: No hay una proporción correcta de X y O en el tablero."
 
-    var victoryPieces = checkDiagonal(matrix)
+    val victoryPieces = checkVictory(matrix)
     return if (victoryPieces == 'X' || victoryPieces == 'O') {
                "Se ha producido una victoria por parte de las '$victoryPieces'"
            } else {
-               victoryPieces = checkLinear(matrix)
-               if (victoryPieces == 'X' || victoryPieces == 'O') {
-                   "Se ha producido una victoria por parte de las '$victoryPieces'"
+               if (matrix.any { it.contains(' ') }) {
+                   "Nulo: Todavía no se ha producido una victoria"
                } else {
-                   if (matrix.any { it.contains(' ') }) {
-                       "Nulo: Todavía no se ha producido una victoria"
-                   } else {
-                       "Empate: Ninguno de los jugadores ha llegado a la victoria"
-                   }
+                   "Empate: Ninguno de los jugadores ha llegado a la victoria"
                }
            }
 }
@@ -76,20 +69,28 @@ private fun ArrayList<ArrayList<Char>>.hasCorrectPiecesProportion(): Boolean {
     return countDifference in 0..1
 }
 
-//Comprueba si hay una victoria por parte de las 'X' o de las 'O' en diagonal
-private fun checkDiagonal(matrix: ArrayList<ArrayList<Char>>): Char {
+//Comprueba si hay una victoria por parte de las 'X' o de las 'O'
+private fun checkVictory(matrix: ArrayList<ArrayList<Char>>): Char {
     var majorDiagonalPiece = matrix[0][0]
     val reversedMatrix = matrix.reversed()
     var minorDiagonalPiece = reversedMatrix[0][0]
 
     return if (majorDiagonalPiece == ' ' && minorDiagonalPiece == ' ') ' '
            else {
-               for (i in 1 until MATRIX_SIZE) {
-                   for (j in 1 until MATRIX_SIZE) {
+               for (i in 0 until MATRIX_SIZE) {
+                   //Comprueba si una fila está llena de 'X' o de 'O'
+                   if (matrix[i].all { it == 'X' }) return 'X'
+                   else if (matrix[i].all { it == 'O' }) return 'O'
+
+                   //Comprueba si una columna está llena de 'X' o de 'O'
+                   if (matrix.all { it[i] == 'X' }) return 'X'
+                   else if (matrix.all { it[i] == 'O' }) return 'O'
+
+                   for (j in 0 until MATRIX_SIZE) {
                        if (i == j) {
-                           if (matrix[i - 1][j - 1] != majorDiagonalPiece)
+                           if (matrix[i][j] != majorDiagonalPiece)
                                majorDiagonalPiece = ' '
-                           if (reversedMatrix[i - 1][j - 1] != minorDiagonalPiece)
+                           if (reversedMatrix[i][j] != minorDiagonalPiece)
                                minorDiagonalPiece = ' '
                        }
                    }
@@ -97,9 +98,4 @@ private fun checkDiagonal(matrix: ArrayList<ArrayList<Char>>): Char {
                if (majorDiagonalPiece != ' ') majorDiagonalPiece
                else minorDiagonalPiece
            }
-}
-
-//Comprueba si hay una victoria por parte de las 'X' o de las 'O' en vertical u horizontal
-private fun checkLinear(matrix: ArrayList<ArrayList<Char>>): Char {
-    return ' '
 }
