@@ -96,27 +96,26 @@ private fun checkVictory(matrix: ArrayList<ArrayList<Char>>): Char {
     val reversedMatrix = matrix.reversed()
     var minorDiagonalPiece = reversedMatrix[0][0]
 
+    for (i in 0 until MATRIX_SIZE) {
+        //Comprueba si una fila está llena de 'X' o de 'O'
+        if (matrix[i].all { it == 'X' }) return 'X'
+        else if (matrix[i].all { it == 'O' }) return 'O'
+
+        //Comprueba si una columna está llena de 'X' o de 'O'
+        if (matrix.all { it[i] == 'X' }) return 'X'
+        else if (matrix.all { it[i] == 'O' }) return 'O'
+
+        for (j in 0 until MATRIX_SIZE) {
+            if (i == j) {
+                if (matrix[i][j] != majorDiagonalPiece)
+                    majorDiagonalPiece = ' '
+                if (reversedMatrix[i][j] != minorDiagonalPiece)
+                    minorDiagonalPiece = ' '
+            }
+        }
+    }
+
     return if (majorDiagonalPiece == ' ' && minorDiagonalPiece == ' ') ' '
-           else {
-               for (i in 0 until MATRIX_SIZE) {
-                   //Comprueba si una fila está llena de 'X' o de 'O'
-                   if (matrix[i].all { it == 'X' }) return 'X'
-                   else if (matrix[i].all { it == 'O' }) return 'O'
-
-                   //Comprueba si una columna está llena de 'X' o de 'O'
-                   if (matrix.all { it[i] == 'X' }) return 'X'
-                   else if (matrix.all { it[i] == 'O' }) return 'O'
-
-                   for (j in 0 until MATRIX_SIZE) {
-                       if (i == j) {
-                           if (matrix[i][j] != majorDiagonalPiece)
-                               majorDiagonalPiece = ' '
-                           if (reversedMatrix[i][j] != minorDiagonalPiece)
-                               minorDiagonalPiece = ' '
-                       }
-                   }
-               }
-               if (majorDiagonalPiece != ' ') majorDiagonalPiece
-               else minorDiagonalPiece
-           }
+           else if (majorDiagonalPiece != ' ') majorDiagonalPiece
+           else minorDiagonalPiece
 }
