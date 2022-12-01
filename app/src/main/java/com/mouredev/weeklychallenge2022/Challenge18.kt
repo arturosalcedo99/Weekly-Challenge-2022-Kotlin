@@ -47,6 +47,13 @@ fun main() {
     println(checkTicTacToe(matrix))
 
     matrix = arrayListOf(
+        arrayListOf('O', 'O', 'X'),
+        arrayListOf('X', 'O', 'O'),
+        arrayListOf('O', 'O', 'X')
+    )
+    println(checkTicTacToe(matrix))
+
+    matrix = arrayListOf(
         arrayListOf('X', 'O', 'X'),
         arrayListOf('X', 'O', 'O'),
         arrayListOf('O', 'X', 'X')
