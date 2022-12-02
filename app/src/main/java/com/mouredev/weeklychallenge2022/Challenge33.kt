@@ -44,13 +44,28 @@ private fun checkChineseZodiac(year: Int): String {
             ANIMAL.values().first()
         }
     }
-    return "$year: [${element.name}, ${animal.name}]"
+    return "$year: [${element.elementName}, ${animal.animalName}]"
 }
 
-enum class ELEMENT {
-    WOOD, FIRE, EARTH, METAL, WATER
+enum class ELEMENT(val elementName: String) {
+    WOOD("Madera"),
+    FIRE("Fuego"),
+    EARTH("Tierra"),
+    METAL("Metal"),
+    WATER("Agua")
 }
 
-enum class ANIMAL {
-    RAT, OX, TIGER, BUNNY, DRAGON, SNAKE, HORSE, SHEEP, MONKEY, ROOSTER, DOG, PIG
+enum class ANIMAL(val animalName: String) {
+    RAT("Rata"),
+    OX("Buey"),
+    TIGER("Tigre"),
+    BUNNY("Conejo"),
+    DRAGON("Dragón"),
+    SNAKE("Serpiente"),
+    HORSE("Caballo"),
+    SHEEP("Oveja"),
+    MONKEY("Mono"),
+    ROOSTER("Gallo"),
+    DOG("Perro"),
+    PIG("Cerdo")
 }
