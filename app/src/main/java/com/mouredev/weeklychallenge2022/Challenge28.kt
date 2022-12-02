@@ -22,7 +22,7 @@ package com.mouredev.weeklychallenge2022
 fun main() {
     calculateChange(arrayListOf(MONEY.COIN_10, MONEY.COIN_100, MONEY.COIN_5, MONEY.COIN_50), PRODUCT.ONIGIRI)
     calculateChange(arrayListOf(MONEY.COIN_50, MONEY.COIN_100), PRODUCT.TAKOYAKI)
-    calculateChange(arrayListOf(MONEY.COIN_5, MONEY.COIN_10, MONEY.COIN_5), PRODUCT.RAMUNE)
+    calculateChange(arrayListOf(MONEY.COIN_200, MONEY.COIN_10, MONEY.COIN_5), PRODUCT.RAMUNE)
 }
 
 private fun calculateChange(coins: ArrayList<MONEY>, product: PRODUCT) {
