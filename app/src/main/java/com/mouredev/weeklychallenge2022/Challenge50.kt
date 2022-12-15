@@ -25,9 +25,9 @@ fun main() {
     val karacaDecrypted = karaca.karacaEncryption(true)
     println("| Karaca --> $karaca\t\t | $karaca --> $karacaDecrypted\t\t  |")
 
-    val burak = "Burak".karacaEncryption()
+    val burak = "Bur1ak8".karacaEncryption()
     val burakDecrypted = burak.karacaEncryption(true)
-    println("| Burak --> $burak\t\t | $burak --> $burakDecrypted\t\t  |")
+    println("| Bur1ak8 --> $burak\t | $burak --> $burakDecrypted\t  |")
 
     val alpaca = "Alpaca".karacaEncryption()
     val alpacaDecrypted = alpaca.karacaEncryption(true)
